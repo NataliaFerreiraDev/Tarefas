@@ -1,5 +1,6 @@
 package br.com.devsimples.tarefas.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "tarefas")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Tarefa {
 
     @Id

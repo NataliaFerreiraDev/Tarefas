@@ -4,6 +4,7 @@ import br.com.devsimples.tarefas.entity.Tarefa;
 import br.com.devsimples.tarefas.repository.TarefaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,7 +17,16 @@ public class TarefaService {
     }
 
     public Tarefa criar(Tarefa tarefa){
-        return tarefaRepository.save(tarefa);
+
+        Tarefa tarefaCriada = new Tarefa();
+        tarefaCriada.setCriacao(LocalDateTime.now());
+        tarefaCriada.setAtualizacao(LocalDateTime.now());
+        tarefaCriada.setFinalizado(false);
+        tarefaCriada.setTitulo(tarefa.getTitulo());
+        tarefaCriada.setDescricao(tarefa.getDescricao());
+        tarefaCriada.setPrioridade(tarefa.getPrioridade());
+
+        return tarefaRepository.save(tarefaCriada);
     }
 
     public List<Tarefa> listar(){
