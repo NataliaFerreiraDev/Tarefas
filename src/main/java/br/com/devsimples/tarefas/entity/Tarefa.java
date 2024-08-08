@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
 @Table(name = "tarefas")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Tarefa {
@@ -18,18 +17,31 @@ public class Tarefa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String titulo;
 
+    @Column(nullable = false)
     private String descricao;
 
-    private int prioridade;
+    @Column(nullable = false)
+    private String prioridade;
 
     private boolean finalizado;
 
-    private LocalDateTime criacao;
+    private LocalDateTime dataCriacao;
 
-    private LocalDateTime atualizacao;
+    private LocalDateTime dataUltimaAtualizacao;
 
-    private LocalDateTime conclusao;
+    private LocalDateTime dataConclusao;
+
+    @PrePersist
+    protected void onCreate() {
+        dataCriacao = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        dataUltimaAtualizacao = LocalDateTime.now();
+    }
 
 }
